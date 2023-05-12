@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    document.addEventListener("DOMContentLoaded", ()=> {
+        var list = document.querySelector("#list");
+        var itemInput = document.querySelector("#item");
+        var addButton = document.querySelector("#add");
+        var removeButton = document.querySelector("#remove");
+        var isYellow = false; 
+      
+        addButton.addEventListener("click", ()=> {
+          var itemText = itemInput.value.trim(); 
+      
+          if (itemText !== "") {
+            var itemArray = itemText.split(" "); 
+      
+            itemArray.forEach((word)=> {
+              var li = document.createElement("li");
+              li.textContent = word;
+              li.style.backgroundColor = isYellow ? "yellow" : "white";
+              list.appendChild(li);
+              isYellow = !isYellow; 
+            });
+      
+            itemInput.value = ""; 
+          }
+        });
+      
+        removeButton.addEventListener("click", ()=> {
+          var itemText = itemInput.value.trim().toLowerCase(); 
+      
+          var items = list.getElementsByTagName("li");
+          for (var i = 0; i < items.length; i++) {
+            var item = items[i];
+            if (item.textContent.toLowerCase() === itemText) {
+              item.parentNode.removeChild(item); 
+              isYellow = !isYellow; 
+              break; 
+            }
+          }
+          itemInput.value = ""; 
+        });
+      });
+      
+</script>
+<body>
+    <h1>My super nifty to-do list</h1>
+    <ul id="list"></ul>
+    <div>
+    <input type="text" id="item" />
+    <button id="add">add</button>
+    <button id="remove">remove</button>
+    </div>
+</body>
+</html>
